@@ -138,6 +138,20 @@ nav {
     color: var(--primary-color);
 }
 
+@media (max-width: 1024px) {
+    header {
+        padding: 1rem 0;
+    }
+
+    .nav-links {
+        display: none;
+    }
+
+    .menu-btn {
+        display: block !important;
+    }
+}
+
 /* Hero Section */
 .hero {
     height: 100vh;
@@ -182,7 +196,9 @@ nav {
 
 .hero-btns {
     display: flex;
-    gap: 1.5rem;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
 }
 
 .hero-image {
@@ -782,34 +798,31 @@ footer {
 
 /* --- ROBUST MOBILE FIXES --- */
 
-/* Base Menu Button Styling (Hidden on and for Desktop) */
+/* Base Menu Button Styling */
 .menu-btn {
     display: none;
     width: 30px;
-    height: 20px;
+    height: 25px;
     position: relative;
     cursor: pointer;
     z-index: 1001;
 }
 
-.menu-btn .bar {
-    width: 100%;
-    height: 2px;
-    background: var(--primary-color);
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    transition: 0.3s;
-}
-
+.menu-btn .bar,
 .menu-btn::before,
 .menu-btn::after {
     content: '';
-    position: absolute;
     width: 100%;
     height: 2px;
     background: var(--primary-color);
+    position: absolute;
+    left: 0;
     transition: 0.3s;
+}
+
+.menu-btn .bar {
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .menu-btn::before {
@@ -820,19 +833,22 @@ footer {
     bottom: 0;
 }
 
-@media (max-width: 992px) {
-    .hero-container {
-        grid-template-columns: 1fr;
-        text-align: center;
-        gap: 3rem;
-    }
+/* Active Menu Button Animation */
+.nav-links.active~.menu-btn .bar {
+    opacity: 0;
 }
 
-@media (max-width: 768px) {
-    .menu-btn {
-        display: block;
-    }
+.nav-links.active~.menu-btn::before {
+    top: 50%;
+    transform: translateY(-50%) rotate(45deg);
+}
 
+.nav-links.active~.menu-btn::after {
+    top: 50%;
+    transform: translateY(-50%) rotate(-45deg);
+}
+
+@media (max-width: 1024px) {
     .nav-links {
         display: none;
         flex-direction: column;
@@ -853,58 +869,80 @@ footer {
     .nav-links.active {
         display: flex;
     }
+}
+
+@media (max-width: 992px) {
+    .hero-container {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 3rem;
+    }
+
+    .hero {
+        height: auto;
+        padding: 120px 0 60px;
+    }
 
     .hero-content h1 {
-        font-size: 3.5rem !important;
-        margin-top: 1rem;
-    }
-
-    .hero-content p {
-        font-size: 1rem;
-        margin: 0 auto 2rem;
-    }
-
-    .about-grid,
-    .skills-grid,
-    .achieve-grid,
-    .services-grid,
-    .projects-grid,
-    .experience-grid {
-        grid-template-columns: 1fr !important;
-    }
-
-    .edu-timeline {
-        padding: 0 1rem;
-    }
-
-    .edu-item {
-        padding: 1.5rem;
-    }
-
-    .image-wrapper {
-        width: 200px !important;
-        height: 200px !important;
-        margin: 0 auto;
+        font-size: clamp(2.5rem, 10vw, 4rem);
     }
 
     .hero-btns {
-        flex-direction: column;
-        align-items: center;
+        justify-content: center;
     }
 
-    .hero-btns .btn {
-        width: 100%;
-        max-width: 300px;
+    .scroll-indicator {
+        display: none;
+    }
+
+    .about-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .section-title {
+        font-size: 2.2rem;
+        margin-bottom: 3rem;
+    }
+
+    .skills-grid,
+    .achieve-grid,
+    .services-grid,
+    .projects-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    .image-wrapper {
+        width: 250px;
+        height: 250px;
+        margin: 0 auto;
     }
 }
 
 @media (max-width: 480px) {
-    .hero-content h1 {
-        font-size: 2.8rem !important;
+    .logo {
+        font-size: 1.5rem;
     }
 
-    .section-title {
-        font-size: 2rem !important;
+    .hero-content h1 {
+        font-size: 2.2rem !important;
+    }
+
+    .hero-btns {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .hero-btns .btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    .image-wrapper {
+        width: 200px;
+        height: 200px;
     }
 
     .container {
