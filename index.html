@@ -372,20 +372,24 @@
 
         function typeWriter() {
             const currentPhrase = phrases[phraseIndex];
+            const textToShow = isDeleting
+                ? currentPhrase.substring(0, charIndex - 1)
+                : currentPhrase.substring(0, charIndex + 1);
+
+            typewriterElement.textContent = textToShow;
+            typewriterElement.setAttribute('data-text', textToShow);
 
             if (isDeleting) {
-                typewriterElement.textContent = currentPhrase.substring(0, charIndex - 1);
                 charIndex--;
                 typeSpeed = 75;
             } else {
-                typewriterElement.textContent = currentPhrase.substring(0, charIndex + 1);
                 charIndex++;
                 typeSpeed = 150;
             }
 
             if (!isDeleting && charIndex === currentPhrase.length) {
                 isDeleting = true;
-                typeSpeed = 2000; // Wait at end
+                typeSpeed = 2000;
             } else if (isDeleting && charIndex === 0) {
                 isDeleting = false;
                 phraseIndex = (phraseIndex + 1) % phrases.length;
